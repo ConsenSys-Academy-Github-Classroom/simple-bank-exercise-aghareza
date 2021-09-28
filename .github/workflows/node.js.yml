@@ -43,5 +43,8 @@ jobs:
         # get initial commit. this will be the first commit for repos created from template
         run: git checkout $(git rev-list --max-parents=0 master) test/simpleBank.test.js
 
+      - name: Start Ganache CLI
+        run: ganache-cli &
+
       - name: Run tests
         run: truffle test test/simpleBank.test.js
