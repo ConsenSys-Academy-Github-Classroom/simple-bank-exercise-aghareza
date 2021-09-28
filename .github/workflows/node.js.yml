@@ -31,6 +31,9 @@ jobs:
       - name: Install latest truffle
         run: npm -g install truffle
 
+      - name: Install Ganache CLI
+        run: npm install -g ganache-cli
+
       - name: Setup for Consensys Academy
         if: ${{ github.repository_owner	== 'Consensys-Academy' }}
         run: git checkout ci_admin test/simpleBank.test.js
@@ -39,6 +42,9 @@ jobs:
         if: ${{ github.repository_owner	!= 'Consensys-Academy' }}
         # get initial commit. this will be the first commit for repos created from template
         run: git checkout $(git rev-list --max-parents=0 master) test/simpleBank.test.js
+
+      - name: Start Ganache CLI
+        run: ganache-cli &
 
       - name: Run tests
         run: truffle test test/simpleBank.test.js
